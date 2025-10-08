@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrama de Flujo - Procedimiento Abuso de Voto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        h1 {
+            color: #2d3748;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #718096;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .case-info {
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            margin-top: 10px;
+        }
+        
+        .case-info p {
+            color: #4a5568;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .diagram-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+            background: #fafafa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        svg {
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: #4a5568;
+        }
+        
+        .legend-shape {
+            width: 60px;
+            height: 30px;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            padding: 20px;
+            background: #edf2f7;
+            border-radius: 10px;
+        }
+        
+        .footer h3 {
+            color: #2d3748;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .footer ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer li {
+            color: #4a5568;
+            font-size: 13px;
+            line-height: 1.8;
+            padding: 5px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .footer li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Estilos para elementos del SVG */
+        .node-text {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 11px;
+            fill: #2d3748;
+        }
+        
+        .node-title {
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .arrow-text {
+            font-size: 10px;
+            fill: #4a5568;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            .legend {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Procedimiento ante la Delegatura de Procedimientos Mercantiles</h1>
+            <div class="subtitle">Caso de Abuso del Derecho de Voto</div>
+            <div class="case-info">
+                <p><strong>Sociedad:</strong> EcoMarina S.A.S. (Cartagena) | <strong>Fecha Asamblea:</strong> 15/02/2025</p>
+                <p><strong>Situación:</strong> Mayoría (60%) aprueba contrato con vinculada y distribución extraordinaria pese a informes adversos. Minoría (40%) alega abuso.</p>
+                <p><strong>Fundamento Legal:</strong> Art. 43 Ley 1258/2008 - Deber de votar en interés de la compañía</p>
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <svg class="legend-shape" viewBox="0 0 100 50">
+                    <ellipse cx="50" cy="25" rx="48" ry="23" fill="#4ade80" stroke="#16a34a" stroke-width="2"/>
+                </svg>
+                <span>Inicio/Fin</span>
+            </div>
+            <div class="legend-item">
+                <svg class="legend-shape" viewBox="0 0 100 50">
+                    <rect x="5" y="5" width="90" height="40" fill="#60a5fa" stroke="#2563eb" stroke-width="2" rx="5"/>
+                </svg>
+                <span>Actividad/Trámite</span>
+            </div>
+            <div class="legend-item">
+                <svg class="legend-shape" viewBox="0 0 100 50">
+                    <path d="M 10,5 L 90,5 L 95,45 L 5,45 Z" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+                </svg>
+                <span>Documento</span>
+            </div>
+            <div class="legend-item">
+                <svg class="legend-shape" viewBox="0 0 100 50">
+                    <path d="M 50,5 L 95,25 L 50,45 L 5,25 Z" fill="#f472b6" stroke="#ec4899" stroke-width="2"/>
+                </svg>
+                <span>Decisión</span>
+            </div>
+            <div class="legend-item">
+                <svg class="legend-shape" viewBox="0 0 100 50">
+                    <rect x="8" y="8" width="84" height="34" fill="#a78bfa" stroke="#7c3aed" stroke-width="3" rx="5"/>
+                    <rect x="5" y="5" width="84" height="34" fill="none" stroke="#7c3aed" stroke-width="2" rx="5"/>
+                </svg>
+                <span>Resultado</span>
+            </div>
+        </div>
+        
+        <div class="diagram-wrapper">
+            <svg width="1300" height="3800" viewBox="0 0 1300 3800">
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#4a5568"/>
+                    </marker>
+                </defs>
+                
+                <!-- 0. INICIO - Hecho Generador -->
+                <ellipse cx="650" cy="40" rx="180" ry="35" fill="#4ade80" stroke="#16a34a" stroke-width="3"/>
+                <text x="650" y="35" text-anchor="middle" class="node-title" fill="#1e3a1e">INICIO</text>
+                <text x="650" y="50" text-anchor="middle" class="node-text" fill="#1e3a1e" font-size="10">Hecho Generador</text>
+                
+                <!-- Flecha -->
+                <line x1="650" y1="75" x2="650" y2="110" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- 0. Preservación de Evidencia -->
+                <rect x="480" y="110" width="340" height="110" fill="#60a5fa" stroke="#2563eb" stroke-width="2" rx="8"/>
+                <text x="650" y="130" text-anchor="middle" class="node-title">0. PRESERVACIÓN DE EVIDENCIA</text>
+                <text x="650" y="150" text-anchor="middle" class="node-text">Asamblea 15/02/2025 - Decisión abusiva</text>
+                <text x="650" y="165" text-anchor="middle" class="node-text">Mayoría 60% aprueba contrato vinculado</text>
+                <text x="650" y="180" text-anchor="middle" class="node-text">Actores: Socios minoritarios, Rep. Legal</text>
+                <text x="650" y="195" text-anchor="middle" class="node-text">Docs: Acta, convocatoria, quórum, votación</text>
+                <text x="650" y="210" text-anchor="middle" class="node-text" font-weight="bold" fill="#1e40af">Base: Art. 43 Ley 1258/2008</text>
+                
+                <!-- Flecha -->
+                <line x1="650" y1="220" x2="650" y2="260" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- 1. Evaluación Estrategia -->
+                <rect x="480" y="260" width="340" height="100" fill="#60a5fa" stroke="#2563eb" stroke-width="2" rx="8"/>
+                <text x="650" y="280" text-anchor="middle" class="node-title">1. EVALUACIÓN DE ESTRATEGIA</text>
+                <text x="650" y="300" text-anchor="middle" class="node-text">Definir pretensiones: Nulidad + Indemnización</text>
+                <text x="650" y="315" text-anchor="middle" class="node-text">Actor: Apoderado del socio demandante</text>
+                <text x="650" y="330" text-anchor="middle" class="node-text">Competencia: Supersociedades (CGP art. 24)</text>
+                <text x="650" y="345" text-anchor="middle" class="node-text" font-weight="bold" fill="#1e40af">Verificar términos de caducidad</text>
+                
+                <!-- Flecha -->
+                <line x1="650" y1="360" x2="650" y2="400" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- DECISIÓN: ¿Se busca anulación? -->
+                <path d="M 650,400 L 800,470 L 650,540 L 500,470 Z" fill="#f472b6" stroke="#ec4899" stroke-width="2"/>
+                <text x="650" y="460" text-anchor="middle" class="node-title" fill="#831843">¿Se busca dejar</text>
+                <text x="650" y="475" text-anchor="middle" class="node-title" fill="#831843">sin efecto</text>
+                <text x="650" y="490" text-anchor="middle" class="node-title" fill="#831843">la decisión?</text>
+                
+                <!-- Flecha SÍ (izquierda) -->
+                <line x1="500" y1="470" x2="350" y2="470" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="420" y="465" text-anchor="middle" class="arrow-text" fill="#16a34a" font-weight="bold">SÍ</text>
+                
+                <!-- Cuadro: Caducidad 2 meses -->
+                <rect x="150" y="420" width="200" height="100" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" rx="8"/>
+                <text x="250" y="440" text-anchor="middle" class="node-text" font-weight="bold" fill="#92400e">CADUCIDAD</text>
+                <text x="250" y="455" text-anchor="middle" class="node-text" fill="#92400e">2 meses desde el acto</text>
+                <text x="250" y="470" text-anchor="middle" class="node-text" fill="#92400e">o su inscripción</text>
+                <text x="250" y="485" text-anchor="middle" class="node-text" fill="#92400e">Ruta: Impugnación</text>
+                <text x="250" y="500" text-anchor="middle" class="node-text" fill="#92400e">con pedimento nulidad</text>
+                
+                <!-- Flecha NO (derecha) -->
+                <line x1="800" y1="470" x2="950" y2="470" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="870" y="465" text-anchor="middle" class="arrow-text" fill="#dc2626" font-weight="bold">NO / ADEMÁS</text>
+                
+                <!-- Cuadro: Indemnización -->
+                <rect x="950" y="420" width="200" height="100" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" rx="8"/>
+                <text x="1050" y="440" text-anchor="middle" class="node-text" font-weight="bold" fill="#92400e">INDEMNIZACIÓN</text>
+                <text x="1050" y="455" text-anchor="middle" class="node-text" fill="#92400e">Prescripción general</text>
+                <text x="1050" y="470" text-anchor="middle" class="node-text" fill="#92400e">Vía declarativa</text>
+                <text x="1050" y="485" text-anchor="middle" class="node-text" fill="#92400e">Solo perjuicios</text>
+                
+                <!-- Flechas de convergencia -->
+                <line x1="250" y1="520" x2="250" y2="600" stroke="#4a5568" stroke-width="2"/>
+                <line x1="1050" y1="520" x2="1050" y2="600" stroke="#4a5568" stroke-width="2"/>
+                <line x1="250" y1="600" x2="600" y2="600" stroke="#4a5568" stroke-width="2"/>
+                <line x1="1050" y1="600" x2="700" y2="600" stroke="#4a5568" stroke-width="2"/>
+                <line x1="650" y1="600" x2="650" y2="650" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- 2. Conciliación Prejudicial -->
+                <rect x="480" y="650" width="340" height="110" fill="#60a5fa" stroke="#2563eb" stroke-width="2" rx="8"/>
+                <text x="650" y="670" text-anchor="middle" class="node-title">2. CONCILIACIÓN PREJUDICIAL</text>
+                <text x="650" y="690" text-anchor="middle" class="node-text">Requisito de procedibilidad (Ley 640/2001)</text>
+                <text x="650" y="705" text-anchor="middle" class="node-text">Centro: Supersociedades</text>
+                <text x="650" y="720" text-anchor="middle" class="node-text">Actores: Partes, Centro de Conciliación</text>
+                <text x="650" y="735" text-anchor="middle" class="node-text">Doc: Solicitud + Acta/Constancia</text>
+                <text x="650" y="750" text-anchor="middle" class="node-text" font-weight="bold" fill="#1e40af">Suspende términos si aplica</text>
+                
+                <!-- Flecha -->
+                <line x1="650" y1="760" x2="650" y2="800" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- DECISIÓN: ¿Acuerdo? -->
+                <path d="M 650,800 L 770,860 L 650,920 L 530,860 Z" fill="#f472b6" stroke="#ec4899" stroke-width="2"/>
+                <text x="650" y="855" text-anchor="middle" class="node-title" fill="#831843">¿Acuerdo en</text>
+                <text x="650" y="870" text-anchor="middle" class="node-title" fill="#831843">conciliación?</text>
+                
+                <!-- Flecha SÍ -->
+                <line x1="770" y1="860" x2="920" y2="860" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="840" y="855" text-anchor="middle" class="arrow-text" fill="#16a34a" font-weight="bold">SÍ</text>
+                
+                <!-- FIN (Acuerdo) -->
+                <ellipse cx="1040" cy="860" rx="110" ry="30" fill="#4ade80" stroke="#16a34a" stroke-width="3"/>
+                <text x="1040" y="855" text-anchor="middle" class="node-title" fill="#1e3a1e">FIN</text>
+                <text x="1040" y="870" text-anchor="middle" class="node-text" fill="#1e3a1e" font-size="10">Título Ejecutivo</text>
+                
+                <!-- Flecha NO -->
+                <line x1="650" y1="920" x2="650" y2="970" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="680" y="950" text-anchor="start" class="arrow-text" fill="#dc2626" font-weight="bold">NO</text>
+                
+                <!-- 3. Elección de Foro -->
+                <rect x="480" y="970" width="340" height="90" fill="#60a5fa" stroke="#2563eb" stroke-width="2" rx="8"/>
+                <text x="650" y="990" text-anchor="middle" class="node-title">3. ELECCIÓN DE FORO</text>
+                <text x="650" y="1010" text-anchor="middle" class="node-text">Competencia a prevención</text>
+                <text x="650" y="1025" text-anchor="middle" class="node-text">Delegatura especializada (sin excluir juez)</text>
+                <text x="650" y="1040" text-anchor="middle" class="node-text" font-weight="bold" fill="#1e40af">2ª instancia: Tribunal Superior</text>
+                <text x="650" y="1055" text-anchor="middle" class="node-text">Territorial: Art. 28 CGP (domicilio sociedad)</text>
+                
+                <!-- Flecha -->
+                <line x1="650" y1="1060" x2="650" y2="1100" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- DOCUMENTO: Demanda -->
+                <path d="M 490,1100 L 810,1100 L 815,1230 L 485,1230 Z" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+                <text x="650" y="1120" text-anchor="middle" class="node-title" fill="#78350f">4. DEMANDA ANTE DELEGATURA</text>
+                <text x="650" y="1140" text-anchor="middle" class="node-text" fill="#78350f">Proceso Verbal (CGP arts. 368 y ss.)</text>
+                <text x="650" y="1155" text-anchor="middle" class="node-text" fill="#78350f">Docs: Escrito, poder, certificado existencia,</text>
+                <text x="650" y="1170" text-anchor="middle" class="node-text" fill="#78350f">acta, constancia conciliación, juramento</text>
+                <text x="650" y="1185" text-anchor="middle" class="node-text" fill="#78350f">estimatorio, solicitud de cautelares</text>
+                <text x="650" y="1200" text-anchor="middle" class="node-text" fill="#78350f">Actor: Delegado de Proc. Mercantiles</text>
+                <text x="650" y="1215" text-anchor="middle" class="node-text" font-weight="bold" fill="#78350f">Cautelar: Suspensión de efectos + caución</text>
+                
+                <!-- Flecha -->
+                <line x1="650" y1="1230" x2="650" y2="1280" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- 5. Admisión -->
+                <rect x="485" y="1280" width="330" height="100" fill="#a78bfa" stroke="#7c3aed" stroke-width="3" rx="8"/>
+                <rect x="480" y="1275" width="330" height="100" fill="none" stroke="#7c3aed" stroke-width="2" rx="8"/>
+                <text x="645" y="1300" text-anchor="middle" class="node-title" fill="#4c1d95">5. ADMISIÓN DE LA DEMANDA</text>
+                <text x="645" y="1320" text-anchor="middle" class="node-text" fill="#4c1d95">Auto admisorio / inadmisión / rechazo</text>
+                <text x="645" y="1335" text-anchor="middle" class="node-text" fill="#4c1d95">Notificación a demandados</text>
+                <text x="645" y="1350" text-anchor="middle" class="node-text" fill="#4c1d95">Decisión sobre cautelares (suspensión</text>
+                <text x="645" y="1365" text-anchor="middle" class="node-text" fill="#4c1d95">decisión social + caución/ponderación)</text>
+                
+                <!-- Flecha -->
+                <line x1="650" y1="1380" x2="650" y2="1430" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- 6. Contestación -->
+                <rect x="480" y="1430" width="340" height="110" fill="#60a5fa" stroke="#2563eb" stroke-width="2" rx="8"/>
+                <text x="650" y="1450" text-anchor="middle" class="node-title">6. CONTESTACIÓN Y EXCEPCIONES</text>
+                <text x="650" y="1470" text-anchor="middle" class="node-text">Plazo: 20 días (art. 369 CGP)</text>
+                <text x="650" y="1485" text-anchor="middle" class="node-text">Actor: Sociedad/socios demandados</text>
+                <text x="650" y="1500" text-anchor="middle" class="node-text">Contenido: Aceptación/negación hechos,</text>
+                <text x="650" y="1515" text-anchor="middle" class="node-text">excepciones previas/mérito, pruebas,</text>
+                <text x="650" y="1530" text-anchor="middle" class="node-text">posible reconvención (CGP 370-371)</text>
+                
+                <!-- Flecha -->
+                <line x1="650" y1="1540" x2="650" y2="1590" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- 7. Audiencia Inicial -->
+                <rect x="480" y="1590" width="340" height="150" fill="#60a5fa" stroke="#2563eb" stroke-width="2" rx="8"/>
+                <text x="650" y="1610" text-anchor="middle" class="node-title">7. AUDIENCIA INICIAL</text>
+                <text x="650" y="1630" text-anchor="middle" class="node-text">Esquema oral del proceso verbal</text>
+                <text x="650" y="1645" text-anchor="middle" class="node-text">Fases:</text>
+                <text x="650" y="1660" text-anchor="middle" class="node-text">• Conciliación intraprocesal</text>
+                <text x="650" y="1675" text-anchor="middle" class="node-text">• Fijación del litigio (hechos/pretensiones)</text>
+                <text x="650" y="1690" text-anchor="middle" class="node-text">• Decisión excepciones previas</text>
+                <text x="650" y="1705" text-anchor="middle" class="node-text">• Saneamiento</text>
+                <text x="650" y="1720" text-anchor="middle" class="node-text">• Decreto de pruebas</text>
+                <text x="650" y="1735" text-anchor="middle" class="node-text" font-weight="bold" fill="#1e40af">• Medidas cautelares (si no resueltas)</text>
+                
+                <!-- Flecha -->
+                <line x1="650" y1="1740" x2="650" y2="1790" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- DECISIÓN: ¿Conciliación total? -->
+                <path d="M 650,1790 L 770,1850 L 650,1910 L 530,1850 Z" fill="#f472b6" stroke="#ec4899" stroke-width="2"/>
+                <text x="650" y="1845" text-anchor="middle" class="node-title" fill="#831843">¿Conciliación</text>
+                <text x="650" y="1860" text-anchor="middle" class="node-title" fill="#831843">total?</text>
+                
+                <!-- Flecha SÍ -->
+                <line x1="770" y1="1850" x2="920" y2="1850" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="840" y="1845" text-anchor="middle" class="arrow-text" fill="#16a34a" font-weight="bold">SÍ</text>
+                
+                <!-- FIN (Conciliación) -->
+                <ellipse cx="1040" cy="1850" rx="110" ry="30" fill="#4ade80" stroke="#16a34a" stroke-width="3"/>
+                <text x="1040" y="1845" text-anchor="middle" class="node-title" fill="#1e3a1e">FIN</text>
+                <text x="1040" y="1860" text-anchor="middle" class="node-text" fill="#1e3a1e" font-size="10">Cosa Juzgada</text>
+                
+                <!-- Flecha NO -->
+                <line x1="650" y1="1910" x2="650" y2="1960" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="680" y="1940" text-anchor="start" class="arrow-text" fill="#dc2626" font-weight="bold">NO</text>
+                
+                <!-- 8. Audiencia Instrucción -->
+                <rect x="480" y="1960" width="340" height="130" fill="#60a5fa" stroke="#2563eb" stroke-width="2" rx="8"/>
+                <text x="650" y="1980" text-anchor="middle" class="node-title">8. AUDIENCIA DE INSTRUCCIÓN</text>
+                <text x="650" y="2000" text-anchor="middle" class="node-text">Práctica probatoria (CGP 368-389)</text>
+                <text x="650" y="2015" text-anchor="middle" class="node-text">Pruebas típicas:</text>
+                <text x="650" y="2030" text-anchor="middle" class="node-text">• Testimonios (junta/revisor fiscal)</text>
+                <text x="650" y="2045" text-anchor="middle" class="node-text">• Peritaje contable/valoración vinculadas</text>
+                <text x="650" y="2060" text-anchor="middle" class="node-text">• Inspección libros y correspondencia</text>
+                <text x="650" y="2075" text-anchor="middle" class="node-text">• Oficios Cámara de Comercio</text>
+                
+                <!-- Flecha -->
+                <line x1="650" y1="2090" x2="650" y2="2130" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="680" y="2115" text-anchor="start" class="arrow-text">Cierre prueba</text>
+                
+                <!-- 9. Alegatos y Sentencia -->
+                <rect x="485" y="2130" width="330" height="140" fill="#a78bfa" stroke="#7c3aed" stroke-width="3" rx="8"/>
